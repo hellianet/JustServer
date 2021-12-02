@@ -7,7 +7,7 @@ MAX_NUMBER_OF_FILES = 10
 PATH = "C:/Users/krist/PycharmProjects/justServer"
 
 
-def configuration_of_logger(path: str, max_number_of_files: int):
+def configuration_of_logger(path : str, max_number_of_files: int, level_log):
     filetype = ['log']
     list_logs = [[f for f in os.listdir(path) if f.endswith(type_)] for type_ in filetype]
     number_of_files_to_log = len(list_logs[0])
@@ -19,10 +19,11 @@ def configuration_of_logger(path: str, max_number_of_files: int):
     current_datetime = datetime.now().strftime('%Y-%m-%dT%H-%M-%S')
     fn = current_datetime + ".log"
 
-    logging.basicConfig(filename=fn, level=logging.DEBUG, filemode='w', format='%(asctime)s - %(levelname)s - %(message)s',
-                        datefmt='%Y-%m-%dT%H:%M:%S') # дописать сюда параметр encoding='utf-8'
-    # (он начинает поддерживаться, начиная с python 3.9)
+    logging.basicConfig(filename=fn, level=level_log, filemode='w', format='%(asctime)s - %(levelname)s - %(message)s',
+                        datefmt='%Y-%m-%dT%H:%M:%S')
 
+    """ logging.basicConfig(filename=fn, level=level_log, encoding='utf-8', filemode='w',
+                        format='%(asctime)s - %(levelname)s - %(message)s', datefmt='%Y-%m-%dT%H:%M:%S')  python 3.9 """
 
 app = Flask(__name__)
 
@@ -45,5 +46,5 @@ def nuke():
 
 
 if __name__ == '__main__':
-    configuration_of_logger(PATH, MAX_NUMBER_OF_FILES)
+    configuration_of_logger(PATH, MAX_NUMBER_OF_FILES,logging.DEBUG)
     app.run(host='0.0.0.0', port=8080)
