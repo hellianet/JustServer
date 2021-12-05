@@ -4,7 +4,7 @@ from datetime import datetime
 import os
 
 MAX_NUMBER_OF_FILES = 10
-PATH = "C:/Users/krist/PycharmProjects/justServer"
+PATH = "/home/hmc"
 
 
 def configuration_of_logger(path : str, max_number_of_files: int, level_log):
